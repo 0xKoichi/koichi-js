@@ -4,29 +4,25 @@ const {
   botSettings: { bitfieldIntents },
 } = require("../config/config.json");
 const { Client, Intents, Collection } = require("discord.js");
-const { deployCommands } = require("./components/command-builder");
 const intents = new Intents(...bitfieldIntents);
+const fs = require("fs");
 
-const Bot = new Client({
-  intents,
-});
-
+const Bot = new Client({ intents });
 Bot.commands = new Collection();
 
-Bot.once("ready", (ctx) => {
-  console.log(`Bot initialised! Logged in as ${ctx.user.tag}`);
+const eventFiles = fs
+  .readdirSync(__dirname + "/events")
+  .filter((file) => file.endsWith(".js"));
 
-  deployCommands()
-    .then((status) => {
-      console.log(`Command deployment status: ${status}`);
-    })
-    .catch((err) => console.error(err));
-});
+for (const file of eventFiles) {
+  const event = require(`./events/${file}`);
+  if (event.once) {
+    Bot.once(event.name, (...args) => event.execute(...args));
+  } else {
+    Bot.on(event.name, (...args) => event.execute(...args));
+  }
+}
 
 Bot.login(TOKEN);
 
-module.exports = {
-  Bot,
-  TOKEN,
-  CLIENT_ID,
-};
+module.exports = {};
