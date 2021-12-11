@@ -1,0 +1,27 @@
+{
+  "name": "disc-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0xKoichi/disc-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0xKoichi/disc-bot/issues"
+  },
+  "homepage": "https://github.com/0xKoichi/disc-bot#readme",
+  "dependencies": {
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "jest": "^27.4.4"
+  }
+}
