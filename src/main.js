@@ -1,11 +1,12 @@
 const dotenv = require("dotenv").config();
-const { TOKEN, CLIENT_ID } = dotenv.parsed;
+const { TOKEN } = dotenv.parsed;
 const {
   botSettings: { bitfieldIntents },
 } = require("../config/config.json");
 const { Client, Intents, Collection } = require("discord.js");
-const intents = new Intents(...bitfieldIntents);
 const fs = require("fs");
+
+const intents = new Intents(...bitfieldIntents);
 
 const Bot = new Client({ intents });
 Bot.commands = new Collection();

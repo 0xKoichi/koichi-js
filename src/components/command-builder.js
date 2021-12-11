@@ -2,7 +2,7 @@ const dotenv = require("dotenv").config();
 const { REST } = require("@discordjs/rest");
 const { Collection } = require("discord.js");
 const { Routes } = require("discord-api-types/v9");
-const { TOKEN, CLIENT_ID } = dotenv.parsed;
+const { TOKEN, CLIENT_ID, GUILD_ID } = dotenv.parsed;
 const fs = require("fs/promises");
 const path = require("path");
 
@@ -37,7 +37,7 @@ const deployCommands = async (Bot) => {
   return commandSetup(Bot)
     .then(async (commands) => {
       try {
-        rest.put(Routes.applicationCommands(CLIENT_ID), {
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
           body: commands,
         });
         return "Completed";
