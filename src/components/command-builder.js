@@ -1,8 +1,7 @@
 const dotenv = require("dotenv").config();
 const { REST } = require("@discordjs/rest");
-const { Collection } = require("discord.js");
 const { Routes } = require("discord-api-types/v9");
-const { TOKEN, CLIENT_ID, GUILD_ID } = dotenv.parsed;
+const { TOKEN, CLIENT_ID } = dotenv.parsed;
 const fs = require("fs/promises");
 const path = require("path");
 
@@ -10,7 +9,7 @@ const path = require("path");
 const rest = new REST({ version: "9" }).setToken(TOKEN);
 
 // Grab commands from the /commands/ folder
-const commandSetup = async (Bot) => {
+const commandSetup = async (Bot, admins) => {
   const commands = [];
 
   try {
@@ -20,6 +19,9 @@ const commandSetup = async (Bot) => {
     for (const file of files) {
       const command = require(`../commands/${file}`);
 
+      if (command.data.name === "delete") {
+        command.data.permissions = admins;
+      }
       Bot.commands.set(command.data.name, command);
 
       commands.push(command.data.toJSON());
@@ -33,11 +35,11 @@ const commandSetup = async (Bot) => {
 };
 
 // Asynchronously call the commandSetup and then post those commands via the API
-const deployCommands = async (Bot) => {
-  return commandSetup(Bot)
+const deployCommands = async (client, guild, admins) => {
+  return commandSetup(client, admins)
     .then(async (commands) => {
       try {
-        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID), {
+        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, guild.id), {
           body: commands,
         });
         return "Completed";
