@@ -1,6 +1,6 @@
 {
   "botSettings": {
-    "bitfieldIntents": [14023]
+    "bitfieldIntents": [8]
   },
   "adminCommands": ["delete"]
 }

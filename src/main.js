@@ -24,6 +24,10 @@ for (const file of eventFiles) {
   }
 }
 
+const shutdown = () => {
+  Bot.destroy().then(() => console.log("Bot shutdown"));
+};
+
 Bot.login(TOKEN);
 
 module.exports = {};

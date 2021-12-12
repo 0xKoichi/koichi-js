@@ -24,7 +24,6 @@ const commandSetup = async (Bot) => {
       commands.push(command.data.toJSON());
     }
 
-    console.log(commands, "<--- JSON commands");
     return commands;
   } catch (err) {
     console.log(err);
