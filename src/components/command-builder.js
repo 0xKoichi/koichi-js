@@ -4,29 +4,27 @@ const { Routes } = require("discord-api-types/v9");
 const { TOKEN, CLIENT_ID } = dotenv.parsed;
 const fs = require("fs/promises");
 const path = require("path");
+const { adminCommands } = require("../../config/config.json");
 
 // Set up the REST api
 const rest = new REST({ version: "9" }).setToken(TOKEN);
 
 // Grab commands from the /commands/ folder
-const commandSetup = async (Bot, admins) => {
+const commandSetup = async (Bot) => {
   const commands = [];
 
   try {
     const allFiles = await fs.readdir(path.join(__dirname, "../commands"));
-    const files = await allFiles.filter((file) => file.endsWith(".js"));
+    const files = allFiles.filter((file) => file.endsWith(".js"));
 
-    for (const file of files) {
+    for await (const file of files) {
       const command = require(`../commands/${file}`);
 
-      if (command.data.name === "delete") {
-        command.data.permissions = admins;
-      }
       Bot.commands.set(command.data.name, command);
-
       commands.push(command.data.toJSON());
     }
 
+    console.log(commands, "<--- JSON commands");
     return commands;
   } catch (err) {
     console.log(err);
@@ -39,10 +37,13 @@ const deployCommands = async (client, guild, admins) => {
   return commandSetup(client, admins)
     .then(async (commands) => {
       try {
-        await rest.put(Routes.applicationGuildCommands(CLIENT_ID, guild.id), {
-          body: commands,
-        });
-        return "Completed";
+        await rest
+          .put(Routes.applicationGuildCommands(CLIENT_ID, guild.id), {
+            body: commands,
+          })
+          .then(async () => {
+            await updateCommands(client, guild, admins);
+          });
       } catch (err) {
         console.error(err);
       }
@@ -50,6 +51,25 @@ const deployCommands = async (client, guild, admins) => {
     .catch((err) => console.error(err));
 };
 
+const updateCommands = async (client, guild, admins) => {
+  guild.commands
+    .fetch()
+    .then((collection) => {
+      collection.forEach((command) => {
+        if (adminCommands.includes(command.name)) {
+          client.application.commands.permissions
+            .set({
+              guild: guild.id,
+              command: command.id,
+              permissions: [...admins],
+            })
+            .then(console.log)
+            .catch(console.log);
+        }
+      });
+    })
+    .catch(console.log);
+};
 module.exports = {
   deployCommands,
 };

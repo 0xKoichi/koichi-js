@@ -25,7 +25,8 @@ const getCommands = async (guild) => {
 
 const data = new SlashCommandBuilder()
   .setName("delete")
-  .setDescription("Delete a command from the globals/guild");
+  .setDescription("Delete a command from the globals/guild")
+  .setDefaultPermission(false);
 
 const execute = async (Bot) => {
   // 'Bot' refers to the interaction sent to the bot.
