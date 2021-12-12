@@ -20,7 +20,7 @@ for (const file of eventFiles) {
   if (event.once) {
     Bot.once(event.name, (...args) => event.execute(...args));
   } else {
-    Bot.on(event.name, (...args) => event.execute(...args));
+    Bot.on(event.name, (...args) => event.execute(Bot, ...args));
   }
 }
 
