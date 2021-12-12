@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageActionRow, MessageSelectMenu } = require("discord.js");
-const { REST } = require("@discordjs/rest");
-const { Routes } = require("discord-api-types/v9");
 const dotenv = require("dotenv").config();
 const { TOKEN, APP_ID } = dotenv.parsed;
 const axios = require("axios").default;
