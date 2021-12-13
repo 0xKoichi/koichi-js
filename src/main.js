@@ -1,14 +1,18 @@
 const dotenv = require("dotenv").config();
 const { TOKEN } = dotenv.parsed;
-const {
-  botSettings: { bitfieldIntents },
-} = require("../config/config.json");
 const { Client, Intents, Collection } = require("discord.js");
 const fs = require("fs");
-
-const intents = new Intents(...bitfieldIntents);
-
-const Bot = new Client({ intents });
+const Bot = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_PRESENCES,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_EMOJIS_AND_STICKERS,
+    Intents.FLAGS.GUILD_INVITES,
+  ],
+});
 Bot.commands = new Collection();
 
 const eventFiles = fs
@@ -23,10 +27,6 @@ for (const file of eventFiles) {
     Bot.on(event.name, (...args) => event.execute(Bot, ...args));
   }
 }
-
-const shutdown = () => {
-  Bot.destroy().then(() => console.log("Bot shutdown"));
-};
 
 Bot.login(TOKEN);
 
