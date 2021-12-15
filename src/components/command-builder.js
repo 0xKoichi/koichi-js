@@ -69,6 +69,7 @@ const updateCommands = async (client, guild, admins) => {
     })
     .catch(console.log);
 };
+
 module.exports = {
   deployCommands,
 };

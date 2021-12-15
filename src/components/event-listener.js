@@ -1,4 +1,9 @@
-const eventListener = async (interaction) => {
+const { redeploy } = require("../../config/redeploy");
+
+const eventListener = async (client, interaction) => {
+  if (interaction.commandName === "Redeploy")
+    return await redeploy(client, interaction);
+
   if (interaction.isCommand()) {
     const command = require(`../commands/${interaction.commandName}`);
     await command.execute(interaction);

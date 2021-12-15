@@ -3,21 +3,22 @@ const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
 const dotenv = require("dotenv").config();
 const { TOKEN } = dotenv.parsed;
 const fetch = require("node-fetch");
+const { activitiesList } = require("../../config/config.json");
 
-const activitiesList = {
-  youtube: {
-    id: "880218394199220334",
-    name: "watch YouTube together",
-  },
-  sketchy_artist: {
-    id: "879864070101172255",
-    name: "Sketchy Artist",
-  },
-  doodle_crew: {
-    id: "878067389634314250",
-    name: "Doodle Crew",
-  },
-};
+// const activitiesList = {
+//   youtube: {
+//     id: "880218394199220334",
+//     name: "watch YouTube together",
+//   },
+//   sketchy_artist: {
+//     id: "879864070101172255",
+//     name: "Sketchy Artist",
+//   },
+//   doodle_crew: {
+//     id: "878067389634314250",
+//     name: "Doodle Crew",
+//   },
+// };
 
 const data = new SlashCommandBuilder()
   .setName("activity")
@@ -32,6 +33,11 @@ const data = new SlashCommandBuilder()
       .addChoice("Youtube", "youtube")
       .addChoice("Sketchy Artist", "sketchy_artist")
       .addChoice("Doodle Crew", "doodle_crew")
+      .addChoice("Poker Night", "poker_night")
+      .addChoice("Word Snacks", "word_snacks")
+      .addChoice("Betrayal.io", "betrayal")
+      .addChoice("Fishington.io", "fishington")
+      .addChoice("Chess in The Park", "chess")
   );
 
 const execute = async (interaction) => {
@@ -42,7 +48,7 @@ const execute = async (interaction) => {
   const guild = await interaction.member.guild.fetch();
   const member = await guild.members.fetch(interaction.user.id);
   const voiceChannel = member.voice.channel;
-  console.log(interaction);
+  //   console.log(interaction);
   if (!voiceChannel || voiceChannel.type !== "GUILD_VOICE")
     return await interaction.reply({
       content: ":x: | You must be in a **voice** channel!",
@@ -62,7 +68,7 @@ const execute = async (interaction) => {
     method: "POST",
     body: JSON.stringify({
       max_age: 86400,
-      max_uses: 0,
+      max_uses: 1,
       target_application_id: activity["id"],
       target_type: 2,
       temporary: false,
@@ -85,25 +91,24 @@ const execute = async (interaction) => {
     .catch((error) => console.log(error));
 };
 
-const sendInvite = async (interaction, activity, voiceChannel, invite) => {
-  const memberName =
-    interaction.member.nickname !== null
-      ? interaction.member.nickname
-      : interaction.user.username;
+const sendInvite = async (...args) => {
+  const [interaction, activity, voiceChannel, invite] = args;
   const inviteEmbed = new MessageEmbed()
     .setColor("#d34964")
     .setTitle(`New ${activity.name} party created!`)
     .setThumbnail(interaction.user.avatarURL())
     .setDescription(
-      `${memberName} has started a new ${activity.name} party!
+      `<@${interaction.user.id}> has started a new ${activity.name} party!
 
-      You can join the party by clicking on the join button below!`
+      You can join their party by clicking on their name in <#${voiceChannel.id}> and clicking 'join activity'!
+      
+      Wanna know how it's done? Click the button below.`
     )
     .setTimestamp();
   const row = new MessageActionRow().addComponents(
     new MessageButton()
-      .setURL(`https://discord.gg/${invite.code}`)
-      .setLabel("Join!")
+      .setURL(`https://github.com/0xKoichi/disc-bot`)
+      .setLabel("GitHub")
       .setStyle("LINK")
   );
   await interaction.reply({
@@ -111,10 +116,16 @@ const sendInvite = async (interaction, activity, voiceChannel, invite) => {
     ephemeral: true,
   });
 
-  await interaction.followUp({ embeds: [inviteEmbed], components: [row] });
+  const msg = await interaction.followUp({
+    embeds: [inviteEmbed],
+    components: [row],
+    fetchReply: true,
+  });
+  setTimeout(() => msg.delete(), 600000);
 };
 
 module.exports = {
   data,
   execute,
+  activitiesList,
 };
