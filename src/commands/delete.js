@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageActionRow, MessageSelectMenu } = require("discord.js");
-const dotenv = require("dotenv").config();
-const { TOKEN, APP_ID } = dotenv.parsed;
+const { TOKEN, APP_ID } = process.env;
 const axios = require("axios").default;
 const headers = { Authorization: `Bot ${TOKEN}` };
 

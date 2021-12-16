@@ -1,7 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageActionRow, MessageButton, MessageEmbed } = require("discord.js");
-const dotenv = require("dotenv").config();
-const { TOKEN } = dotenv.parsed;
+const { TOKEN } = process.env;
 const fetch = require("node-fetch");
 const { activitiesList } = require("../../config/config.json");
 

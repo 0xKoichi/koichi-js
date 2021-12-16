@@ -1,5 +1,4 @@
-const dotenv = require("dotenv").config();
-const { OVERRIDE, APP_ID, TOKEN } = dotenv.parsed;
+const { OVERRIDE } = process.env;
 const { deployCommands } = require("../src/components/command-builder");
 const { fetchRoles } = require("../src/components/admin-fetcher");
 const { MessageEmbed } = require("discord.js");
