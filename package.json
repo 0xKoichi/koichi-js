@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "./src/main.js",
+  "engines": {
+    "node": "16.x",
+    "npm": "7.x"
+  },
   "scripts": {
     "test": "jest",
     "start": "node ./src/main.js"
