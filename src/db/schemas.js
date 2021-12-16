@@ -7,6 +7,7 @@ class User {
     this.messageCount = 1;
     this.s_LVL = 1;
     this.lastReward = timestamp;
+    this.xpNeeded = 0;
   }
 }
 
