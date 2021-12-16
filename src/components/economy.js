@@ -52,12 +52,9 @@ const levelCheck = async (user, newXP, context) => {
     const embed = new MessageEmbed()
       .setTitle(``)
       .setDescription(
-        `**<@${user.userid}> levelled up!**\n
-                        ${codeBlock(`
-                        Level: ${currentLevel}
-                        Total XP: ${user.totalXP}
-                        Progress: ${newXP} / ${xpNeeded} XP
-                        ${progress[0]}`)}`
+        `**<@${user.userid}> levelled up!**\n${codeBlock(
+          `Level: ${currentLevel}\nTotal XP: ${user.totalXP}\nProgress: ${newXP} / ${xpNeeded} XP\n${progress[0]}`
+        )}`
       )
       .setTimestamp()
       .setColor("RANDOM")
