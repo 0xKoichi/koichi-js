@@ -21,8 +21,7 @@
 * [Usage](#usage)
 * [Roadmap](#roadmap)
 * [Contributing](#contributing)
-* [Authors](#authors)
-* [Acknowledgements](#acknowledgements)
+
 
 ## About The Project
 
