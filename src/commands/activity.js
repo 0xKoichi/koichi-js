@@ -5,21 +5,6 @@ const { TOKEN } = dotenv.parsed;
 const fetch = require("node-fetch");
 const { activitiesList } = require("../../config/config.json");
 
-// const activitiesList = {
-//   youtube: {
-//     id: "880218394199220334",
-//     name: "watch YouTube together",
-//   },
-//   sketchy_artist: {
-//     id: "879864070101172255",
-//     name: "Sketchy Artist",
-//   },
-//   doodle_crew: {
-//     id: "878067389634314250",
-//     name: "Doodle Crew",
-//   },
-// };
-
 const data = new SlashCommandBuilder()
   .setName("activity")
   .setDescription(

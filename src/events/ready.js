@@ -1,8 +1,9 @@
 const chalk = require("chalk");
+const statusRotator = require("../components/status-rotator");
 
 const execute = async (ctx) => {
   console.log(chalk.gray(`Logged in as ${ctx.user.tag}!`));
-  await ctx.user.setActivity("being the most based bot", { type: "COMPETING" });
+  statusRotator(ctx);
 };
 
 module.exports = {
