@@ -5,8 +5,7 @@ const eventListener = async (client, interaction) => {
     return await redeploy(client, interaction);
 
   if (interaction.isCommand()) {
-    const command = require(`../commands/${interaction.commandName}`);
-    await command.execute(interaction);
+    await client.commands.execute(interaction);
     return;
   }
 
