@@ -1,3 +1,4 @@
+const dotenv = require("dotenv").config();
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageActionRow, MessageSelectMenu } = require("discord.js");
 const { TOKEN, APP_ID } = process.env;

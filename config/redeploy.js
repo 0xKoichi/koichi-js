@@ -1,6 +1,7 @@
+const dotenv = require("dotenv").config();
 const { OVERRIDE } = process.env;
-const { deployCommands } = require("../src/components/command-builder");
-const { fetchRoles } = require("../src/components/admin-fetcher");
+const { deployCommands } = require("../src/components/utils/command-builder");
+const { fetchRoles } = require("../src/components/utils/admin-fetcher");
 const { MessageEmbed } = require("discord.js");
 
 const redeploy = async (client, interaction) => {

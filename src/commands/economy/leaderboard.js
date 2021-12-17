@@ -1,4 +1,4 @@
-const { getFrom } = require("../db/interactions");
+const { getFrom } = require("../../db/interactions");
 const { MessageEmbed } = require("discord.js");
 const { SlashCommandBuilder, codeBlock } = require("@discordjs/builders");
 

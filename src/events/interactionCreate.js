@@ -1,4 +1,4 @@
-const eventListener = require("../components/event-listener");
+const eventListener = require("../components/utils/event-listener");
 
 module.exports = {
   name: "interactionCreate",

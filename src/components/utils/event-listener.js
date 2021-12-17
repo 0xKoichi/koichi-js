@@ -1,4 +1,4 @@
-const { redeploy } = require("../../config/redeploy");
+const { redeploy } = require("../../../config/redeploy");
 
 const eventListener = async (client, interaction) => {
   if (interaction.commandName === "Redeploy")

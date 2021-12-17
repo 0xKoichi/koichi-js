@@ -1,7 +1,11 @@
+const dotenv = require("dotenv").config();
 const { MongoClient } = require("mongodb");
 const { MONGOURL } = process.env;
 
-const client = new MongoClient(MONGOURL);
+const client = new MongoClient(MONGOURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 let db;
 
 const connect = async (guildID) => {

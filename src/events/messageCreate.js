@@ -1,5 +1,5 @@
 const { getFrom } = require("../db/interactions");
-const economyEvent = require("../components/economy");
+const economyEvent = require("../components/economy/economy");
 
 const messageHandler = async (message) => {
   if (message.author.bot) return;

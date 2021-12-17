@@ -1,4 +1,4 @@
-const { statuses } = require("../../config/config.json");
+const { statuses } = require("../../../config/config.json");
 
 const presence = ["online", "idle", "dnd"];
 const types = ["WATCHING", "LISTENING", "COMPETING"];
