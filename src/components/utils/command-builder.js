@@ -1,25 +1,24 @@
+const dotenv = require("dotenv").config();
 const { REST } = require("@discordjs/rest");
 const { Routes } = require("discord-api-types/v9");
 const { TOKEN, CLIENT_ID } = process.env;
-const fs = require("fs/promises");
-const path = require("path");
-const { adminCommands } = require("../../config/config.json");
+const getCommands = require("./get-command-files");
+const { adminCommands } = require("../../../config/config.json");
 
 // Set up the REST api
 const rest = new REST({ version: "9" }).setToken(TOKEN);
 
 // Grab commands from the /commands/ folder
-const commandSetup = async (Bot) => {
+const commandSetup = async (client) => {
   const commands = [];
 
   try {
-    const allFiles = await fs.readdir(path.join(__dirname, "../commands"));
-    const files = allFiles.filter((file) => file.endsWith(".js"));
+    const files = await getCommands();
 
     for await (const file of files) {
       const command = require(`../commands/${file}`);
 
-      Bot.commands.set(command.data.name, command);
+      client.commands.set(command.data.name, command);
       commands.push(command.data.toJSON());
     }
 
@@ -32,7 +31,7 @@ const commandSetup = async (Bot) => {
 
 // Asynchronously call the commandSetup and then post those commands via the API
 const deployCommands = async (client, guild, admins) => {
-  return commandSetup(client, admins)
+  return commandSetup(client)
     .then(async (commands) => {
       try {
         await rest

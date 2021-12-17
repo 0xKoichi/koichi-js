@@ -1,6 +1,6 @@
-const connect = require("../db/connect");
-const { User } = require("../db/schemas");
-const { SlashCommandBuilder, codeBlock } = require("@discordjs/builders");
+const connect = require("../../db/connect");
+const { User } = require("../../db/schemas");
+const { SlashCommandBuilder } = require("@discordjs/builders");
 const relativeTime = require("dayjs/plugin/relativeTime");
 const dayjs = require("dayjs");
 const { MessageEmbed } = require("discord.js");

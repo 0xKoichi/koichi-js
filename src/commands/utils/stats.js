@@ -1,10 +1,6 @@
-const connect = require("../db/connect");
+const connect = require("../../db/connect");
 const { MessageEmbed } = require("discord.js");
-const {
-  SlashCommandBuilder,
-  codeBlock,
-  hyperlink,
-} = require("@discordjs/builders");
+const { SlashCommandBuilder, codeBlock } = require("@discordjs/builders");
 
 const data = new SlashCommandBuilder()
   .setName("stats")

@@ -1,11 +1,7 @@
-const {
-  SlashCommandBuilder,
-  inlineCode,
-  codeBlock,
-} = require("@discordjs/builders");
+const { SlashCommandBuilder, codeBlock } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
-const { getFrom } = require("../db/interactions");
-const getProgress = require("../components/user-progress");
+const { getFrom } = require("../../db/interactions");
+const getProgress = require("../../components/economy/user-progress");
 
 const data = new SlashCommandBuilder()
   .setName("rank")
