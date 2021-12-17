@@ -7,5 +7,7 @@ const data = new SlashCommandBuilder()
 
 module.exports = {
   data,
-  execute: musicInit,
+  execute(client, interaction) {
+    musicInit(client, interaction);
+  },
 };
