@@ -16,7 +16,7 @@ const commandSetup = async (client) => {
     const files = await getCommands();
 
     for await (const file of files) {
-      const command = require(`../commands/${file}`);
+      const command = require(`../commands${file}`);
 
       client.commands.set(command.data.name, command);
       commands.push(command.data.toJSON());
