@@ -1,7 +1,7 @@
 const fs = require("fs/promises");
 const path = require("path");
 
-module.exports = (async () => {
+module.exports = async () => {
   const sourcePath = path.join(__dirname, "../../commands");
   let cmdDirs = await fs.readdir(sourcePath);
 
@@ -28,4 +28,4 @@ module.exports = (async () => {
   }
 
   return cmdFiles;
-})();
+};
