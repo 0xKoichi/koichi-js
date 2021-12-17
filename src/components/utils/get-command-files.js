@@ -17,13 +17,10 @@ module.exports = async () => {
       withFileTypes: true,
     });
 
-    console.log(dir);
-    console.log(dirCommands);
-
     cmdFiles.push(
       ...dirCommands
         .filter((file) => file.name.endsWith(".js"))
-        .map((file) => `/${dir}/${file.name}`)
+        .map((file) => file.name)
     );
   }
 
