@@ -1,5 +1,5 @@
-const { fetchRoles } = require("../components/admin-fetcher");
-const { deployCommands } = require("../components/command-builder");
+const { fetchRoles } = require("../components/utils/admin-fetcher");
+const { deployCommands } = require("../components/utils/command-builder");
 const chalk = require("chalk");
 const ora = require("ora");
 
