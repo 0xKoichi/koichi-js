@@ -2,7 +2,7 @@ const { SlashCommandBuilder, codeBlock } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 const { getFrom } = require("../../db/interactions");
 const getProgress = require("../../components/economy/user-progress");
-const redeploy = require("../../../config/redeploy");
+const { redeploy } = require("../../../config/redeploy");
 
 const data = new SlashCommandBuilder()
   .setName("rank")
