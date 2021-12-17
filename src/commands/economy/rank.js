@@ -23,7 +23,6 @@ const execute = async (interaction) => {
   let rank,
     currentLVL,
     description = "\n",
-    currentXP,
     count = 1;
 
   const cachedLeaderboard = new Map();
