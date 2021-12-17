@@ -14,7 +14,6 @@ const Bot = new Client({
     Intents.FLAGS.GUILD_INVITES,
   ],
 });
-
 Bot.commands = new Collection();
 
 const eventFiles = fs
