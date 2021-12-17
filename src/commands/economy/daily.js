@@ -1,4 +1,4 @@
-const connect = require("../../db/connect");
+const { getFrom } = require("../../db/interactions");
 const { User } = require("../../db/schemas");
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const relativeTime = require("dayjs/plugin/relativeTime");
@@ -27,37 +27,21 @@ const data = new SlashCommandBuilder()
   .setDefaultPermission(true);
 
 const execute = async (interaction) => {
-  const timestamp = dayjs().toISOString();
-  const db = await connect(interaction.guildId);
+  const { user, collection } = await getFrom(interaction);
   const username =
     interaction.member.nickname !== null
       ? interaction.member.nickname
       : interaction.user.username;
-
-  try {
-    const query = { userid: interaction.user.id };
-    const collection = db.collection("Users");
-    let user = await collection.findOne(query);
-
-    if (user === null) {
-      console.log("This is happening for some reason");
-      user = new User(username, interaction.user.id, timestamp);
-      await collection.insertOne(user);
-      console.log(
-        `${user.username} was inserted into ${interaction.guildId}'s database`
-      );
-    } else {
-      const dailyReward = checkDailyReward(user, interaction) ? 1000 : 0;
-      const updatedUser = {
-        $set: {
-          username: username,
-          xp: (user.xp += dailyReward),
-          lastReward: user.lastReward,
-        },
-      };
-      const result = await collection.updateOne(query, updatedUser);
-    }
-  } catch (err) {}
+  const query = { userid: interaction.user.id };
+  const dailyReward = (await checkDailyReward(user, interaction)) ? 1000 : 0;
+  const updatedUser = {
+    $set: {
+      username: username,
+      xp: (user.xp += dailyReward),
+      lastReward: user.lastReward,
+    },
+  };
+  await collection.updateOne(query, updatedUser);
 };
 
 const checkDailyReward = async (user, interaction) => {
