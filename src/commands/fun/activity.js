@@ -23,7 +23,8 @@ const data = new SlashCommandBuilder()
       .addChoice("Betrayal.io", "betrayal")
       .addChoice("Fishington.io", "fishington")
       .addChoice("Chess in The Park", "chess")
-  );
+  )
+  .setDefaultPermission(true);
 
 const execute = async (interaction) => {
   const memberName =

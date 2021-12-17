@@ -3,6 +3,7 @@ const ytdl = require("ytdl-core");
 const Queue = require("./queue");
 
 const musicInit = async (client, interaction) => {
+  console.log(client, interaction);
   await queueHandler(client, interaction);
 };
 
