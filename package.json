@@ -36,7 +36,8 @@
     "mongodb": "^4.2.2",
     "mongoose": "^6.1.2",
     "ora": "^5.4.1",
-    "string-progressbar": "^1.0.4"
+    "string-progressbar": "^1.0.4",
+    "ytdl-core": "^4.9.2"
   },
   "devDependencies": {
     "jest": "^27.4.4"

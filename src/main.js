@@ -7,6 +7,8 @@ const Bot = new Client({
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.STAGE_INSTANCE_CREATE,
+    Intents.FLAGS.STAGE_INSTANCE_DELETE,
     Intents.FLAGS.GUILD_MEMBERS,
     Intents.FLAGS.GUILD_PRESENCES,
     Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
@@ -16,6 +18,7 @@ const Bot = new Client({
 });
 
 Bot.commands = new Collection();
+Bot.guildMusic = new Collection();
 
 const eventFiles = fs
   .readdirSync(__dirname + "/events")
