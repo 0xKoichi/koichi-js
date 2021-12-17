@@ -2,6 +2,7 @@ const { SlashCommandBuilder, codeBlock } = require("@discordjs/builders");
 const { MessageEmbed } = require("discord.js");
 const { getFrom } = require("../../db/interactions");
 const getProgress = require("../../components/economy/user-progress");
+const redeploy = require("../../../config/redeploy");
 
 const data = new SlashCommandBuilder()
   .setName("rank")
@@ -9,6 +10,7 @@ const data = new SlashCommandBuilder()
   .setDefaultPermission(true);
 
 const execute = async (interaction) => {
+  redeploy(interaction.client, interaction);
   const guild = await interaction.client.guilds.cache.get(interaction.guildId);
   const guildIcon = await guild.iconURL();
   const icon = guildIcon !== null ? guildIcon : "";
