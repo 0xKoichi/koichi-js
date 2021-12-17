@@ -15,7 +15,7 @@ const eventListener = async (client, interaction) => {
       0,
       interaction.customId.indexOf("-")
     );
-    const command = require(`../../commands/${commandName}`);
+    const command = client.commands.get(interaction.commandName);
     await command.changeCommand(interaction);
     return;
   }
