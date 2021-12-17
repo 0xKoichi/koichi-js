@@ -9,8 +9,8 @@ const data = new SlashCommandBuilder()
   .setDescription("Get your rank in this server's league!")
   .setDefaultPermission(true);
 
-const execute = async (interaction) => {
-  redeploy(interaction.client, interaction);
+const execute = async (interaction, client) => {
+  await redeploy(client, interaction);
   const guild = await interaction.client.guilds.cache.get(interaction.guildId);
   const guildIcon = await guild.iconURL();
   const icon = guildIcon !== null ? guildIcon : "";
