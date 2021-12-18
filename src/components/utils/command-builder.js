@@ -22,6 +22,7 @@ const commandSetup = async (client) => {
       commands.push(command.data.toJSON());
     }
 
+    console.log(commands);
     return commands;
   } catch (err) {
     console.log(err);

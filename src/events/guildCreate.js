@@ -1,11 +1,14 @@
 const { fetchRoles } = require("../components/utils/admin-fetcher");
 const { deployCommands } = require("../components/utils/command-builder");
+const { Collection } = require("discord.js");
 const chalk = require("chalk");
 const ora = require("ora");
 
 async function guildHandler(client, guild) {
   if (!guild.available) return;
 
+  client.commands = new Collection();
+  client.guildMusic = new Collection();
   console.log(`${chalk.white(`Initialising ${guild}...`)}`);
 
   const roleFetch = ora({
