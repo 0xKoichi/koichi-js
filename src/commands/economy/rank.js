@@ -10,7 +10,10 @@ const data = new SlashCommandBuilder()
   .setDefaultPermission(true);
 
 const execute = async (interaction, client) => {
-  await redeploy(client, interaction);
+  console.log(interaction, "<--- interaction");
+
+  console.log(client, "<--- client");
+
   const guild = await interaction.client.guilds.cache.get(interaction.guildId);
   const guildIcon = await guild.iconURL();
   const icon = guildIcon !== null ? guildIcon : "";
