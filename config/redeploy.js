@@ -5,9 +5,9 @@ const { fetchRoles } = require("../src/components/utils/admin-fetcher");
 const { MessageEmbed } = require("discord.js");
 
 const redeploy = async (client, interaction) => {
-  if (interaction.user.id === OVERRIDE) {
-    return await masterGuilds(client, interaction);
-  } else if (interaction.user.id === interaction.guild.ownerId) {
+  // if (interaction.user.id === OVERRIDE) {
+  //   return await masterGuilds(client, interaction);
+  if (interaction.user.id === interaction.guild.ownerId) {
     await localGuild(client, interaction);
   } else
     await interaction.reply({
