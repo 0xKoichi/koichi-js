@@ -58,11 +58,6 @@ const masterGuilds = async (client, interaction) => {
   const tracker = new MessageEmbed()
     .setTitle("Updating all servers...")
     .setDescription("Working...")
-    .setAuthor(
-      "koichi.js",
-      `${client.user.avatarURL()}`,
-      "https://github.com/0xKoichi/disc-bot"
-    )
     .setThumbnail(
       "https://vignette.wikia.nocookie.net/spartaremix/images/e/ec/Discord-new-logo.png/revision/latest?cb=20180224071554"
     )
