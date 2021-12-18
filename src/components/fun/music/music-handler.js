@@ -14,18 +14,15 @@ const queueHandler = async (interaction, client) => {
   // }
 };
 
-const stageHandler = async (interaction, client) => {
+const guildUpdate = async (interaction) => {
   const guild = await interaction.member.guild.fetch();
-  const member = await guild.members.fetch(interaction.user.id);
-
-  if (!guild.features.includes("COMMUNITY")) {
-    guild
-      .edit({
-        features: ["COMMUNITY"],
-      })
-      .then((updated) => console.log(`New guild features ${updated}`))
-      .catch(console.error);
-  }
+  console.log(guild.id);
+  guild
+    .edit({
+      name: "Test guild update",
+    })
+    .then((updated) => console.log(`New guild ${updated}`))
+    .catch(console.error);
 };
 
 module.exports = musicInit;
