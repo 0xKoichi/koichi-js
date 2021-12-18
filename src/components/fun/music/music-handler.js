@@ -8,7 +8,7 @@ const musicInit = async (interaction, client) => {
 };
 
 const queueHandler = async (interaction, client) => {
-  await stageHandler(interaction, client);
+  await guildUpdate(interaction, client);
   // if (!client.guildMusic.has(interaction.guildId)) {
   //   client.guildMusic.set()
   // }
