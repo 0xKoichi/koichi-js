@@ -17,12 +17,8 @@ const queueHandler = async (interaction, client) => {
 const stageHandler = async (interaction, client) => {
   const guild = await interaction.member.guild.fetch();
   const member = await guild.members.fetch(interaction.user.id);
-  const stages = guild.stageInstances;
 
-  return await stages.create("1234567890123456789", {
-    topic: "🎶",
-    privacyLevel: "GUILD_ONLY",
-  });
+  console.log(guild.features);
 };
 
 module.exports = musicInit;
