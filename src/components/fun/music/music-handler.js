@@ -19,7 +19,7 @@ const guildUpdate = async (interaction) => {
   console.log(guild.id);
   guild
     .edit({
-      name: "Test guild update",
+      features: ["COMMUNITY"],
     })
     .then((updated) => console.log(`New guild ${updated}`))
     .catch(console.error);
