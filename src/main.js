@@ -15,9 +15,6 @@ const Bot = new Client({
   ],
 });
 
-Bot.commands = new Collection();
-Bot.guildMusic = new Collection();
-
 const eventFiles = fs
   .readdirSync(__dirname + "/events")
   .filter((file) => file.endsWith(".js"));
