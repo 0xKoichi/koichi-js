@@ -7,7 +7,7 @@
     <br/>
     <br/>
     <a href="https://github.com/0xKoichi/disc-bot/issues">Report Bug</a>
-    .
+    |
     <a href="https://github.com/0xKoichi/disc-bot/issues">Request Feature</a>
   </p>
 </p>
