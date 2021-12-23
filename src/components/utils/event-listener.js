@@ -6,7 +6,7 @@ const eventListener = async (client, interaction) => {
 
   if (interaction.isCommand()) {
     const command = client.commands.get(interaction.commandName);
-    await command.execute(interaction);
+    await command.execute(interaction, client);
     return;
   }
 

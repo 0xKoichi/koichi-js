@@ -2,10 +2,11 @@ const { MessageEmbed } = require("discord.js");
 const { filledBar } = require("string-progressbar");
 const { codeBlock } = require("@discordjs/builders");
 
+const exponent = 1.5;
+const baseXP = 1000;
+
 const economyEvent = async (context, user, collection) => {
-  const xpGained = Math.round(
-    (15 * Math.log2(user.s_LVL + 50)) / Math.random()
-  );
+  const xpGained = Math.round(15 * Math.log2(user.s_LVL + 50));
   const { currentLevel, currentXP, xpNeeded, totalXP } = await levelCheck(
     user,
     xpGained,
@@ -18,7 +19,7 @@ const economyEvent = async (context, user, collection) => {
       xp: currentXP,
       xpNeeded: xpNeeded,
       totalXP: totalXP,
-      messageCount: (user.messageCount += 1),
+      messageCount: ++user.messageCount,
       s_LVL: currentLevel,
     },
   };
@@ -28,23 +29,27 @@ const economyEvent = async (context, user, collection) => {
 
 const levelCheck = async (user, newXP, context) => {
   let currentLevel = user.s_LVL;
-  let xpNeeded = Math.round(currentLevel * 1000 * Math.exp(currentLevel / 50));
+  let xpNeeded = Math.floor(baseXP * Math.pow(user.s_LVL, exponent));
   let levelledUp = false;
-  if (!user.totalXP) user.totalXP = newXP;
-  else user.totalXP += newXP;
+
+  if (!user.totalXP) {
+    user.totalXP = newXP;
+  } else {
+    user.totalXP += newXP;
+  }
+
   let totalXP = user.totalXP;
   let currentXP = user.xp + newXP;
 
-  for (currentLevel; user.xp > xpNeeded; currentLevel++) {
-    xpNeeded = Math.round(currentLevel * 1000 * Math.exp(currentLevel / 50));
-    currentXP = 0;
+  if (currentXP > xpNeeded) {
+    currentLevel++;
     levelledUp = true;
+    currentXP = 0;
   }
 
   if (currentXP < 0) currentXP = 0;
 
   // Calculate progress
-  xpNeeded = Math.round(currentLevel * 1000 * Math.exp(currentLevel / 50));
   const percentage = Math.round((currentXP / xpNeeded) * 100);
   const progress = filledBar(100, percentage, 20);
 
@@ -53,7 +58,7 @@ const levelCheck = async (user, newXP, context) => {
       .setTitle(``)
       .setDescription(
         `**<@${user.userid}> levelled up!**\n${codeBlock(
-          `Level: ${currentLevel}\nTotal XP: ${user.totalXP}\nProgress: ${newXP} / ${xpNeeded} XP\n${progress[0]}`
+          `Level: ${currentLevel}\nTotal XP: ${user.totalXP}\nTo Next Level: ${newXP} / ${xpNeeded} XP\n${progress[0]}`
         )}`
       )
       .setTimestamp()
